@@ -70,7 +70,7 @@ struct sway_server {
 	struct wl_listener xdg_decoration;
 	struct wl_list xdg_decorations; // sway_xdg_decoration::link
 
-	struct wlr_drm_lease_manager_v1 *drm_lease_manager;
+	struct wlr_drm_lease_device_v1 *drm_lease_device;
 	struct wl_listener drm_lease_requested;
 
 	struct wlr_presentation *presentation;

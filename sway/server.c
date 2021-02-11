@@ -57,7 +57,7 @@ static void handle_drm_lease_requested(
 	/* We only offer non-desktop outputs, but in the future we might want to do
 	 * more logic here. */
 	struct wlr_drm_lease_request_v1 *req = data;
-	wlr_drm_lease_manager_v1_grant_lease_request(req->manager, req);
+	wlr_drm_lease_device_v1_grant_lease_request(req->manager, req);
 }
 
 bool server_init(struct sway_server *server) {
@@ -151,11 +151,11 @@ bool server_init(struct sway_server *server) {
 	server->input_method = wlr_input_method_manager_v2_create(server->wl_display);
 	server->text_input = wlr_text_input_manager_v3_create(server->wl_display);
 
-	server->drm_lease_manager =
-		wlr_drm_lease_manager_v1_create(server->wl_display, server->backend);
-	if (server->drm_lease_manager) {
+	server->drm_lease_device =
+		wlr_drm_lease_device_v1_create(server->wl_display, server->backend);
+	if (server->drm_lease_device) {
 		server->drm_lease_requested.notify = handle_drm_lease_requested;
-		wl_signal_add(&server->drm_lease_manager->events.lease_requested,
+		wl_signal_add(&server->drm_lease_device->events.lease_requested,
 				&server->drm_lease_requested);
 	}
 
